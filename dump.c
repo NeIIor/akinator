@@ -5,7 +5,6 @@
 #include <sys/time.h>
 #include <assert.h>
 
-#include "bin_tree.h"
 #include "dump.h"
 
 void dumpAkin  (node_t* node) {
@@ -49,11 +48,11 @@ void printDotAkin (node_t* node, FILE* file) {
     if(!node) return; 
 
     if (node->yes) {
-        fprintf   (file,"%s:<f2> -> %s\n", node->data_node, node->yes->data_node);
+        fprintf   (file, "\"%s\":<f2> -> \"%s\"\n", node->data_node, node->yes->data_node);
         printDotAkin (node->yes, file);
     }
     if (node->no) {
-        fprintf   (file, "%s:<f1> -> %s\n", node->data_node, node->no->data_node);
+        fprintf   (file, "\"%s\":<f1> -> \"%s\"\n", node->data_node, node->no->data_node);
         printDotAkin (node->no, file);
     }
 }
@@ -62,9 +61,8 @@ void printNodeAkin (node_t* node, FILE* file) {
     assert (node);
 
     if(!node) return; 
-    printf("%s", node->data_node);
     void* pointer = (void*)(uintptr_t)node->data_node; 
-    fprintf (file, "%s[shape=record, label= \"{ip: %p | data: %s | {<f1> no | <f2> yes}}\"];\n", 
+    fprintf (file, "\"%s\"[shape=record, label= \"{ip: %p | data: %s | {<f1> no | <f2> yes}}\"];\n", 
     node->data_node, pointer, node->data_node);
 
     if (node->no)   {printNodeAkin (node->no, file);}

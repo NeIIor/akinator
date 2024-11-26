@@ -1,11 +1,7 @@
-#ifndef DUMPNAHUY_H
-#define DUMPNAHUY_H
-#include "bin_tree.h"
-#include <stdio.h>
+#ifndef __DUMP_H__
+#define __DUMP_H__
+#include "gen.h"
 #include <stdint.h>
-
-const char yes[] = "yes";
-const char no[] = "no";
 
 const char adding_html_first[] = "\n"
                                 "digraph structs {\n"
@@ -26,4 +22,4 @@ void dumpAkin               (node_t* node);
 void printDotAkin           (node_t* node, FILE* file);
 void printNodeAkin          (node_t* node, FILE* file);
 
-#endif // DUMPNAHUY_H
+#endif // __DUMP_H__
