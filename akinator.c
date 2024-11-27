@@ -24,10 +24,10 @@ void destrAkin (node_t* node) {
     }
 }
 
-void addObjectiveAkin (node_t* node, char* sing, char* object, char* parent) {
+void addObjectiveAkin (node_t* node, char* sign, char* object, char* parent) {
 
     assert (node);
-    assert (sing);
+    assert (sign);
     assert (object);
     assert (parent);
 
@@ -37,40 +37,26 @@ void addObjectiveAkin (node_t* node, char* sing, char* object, char* parent) {
         free (node->data_node);
     }
 
-    node->data_node = (char*) calloc(strlen(sing) + 1, sizeof(char));
-    strcpy(node->data_node, sing);
+    node->data_node = (char*) calloc(strlen(sign) + 1, sizeof(char));
+    strcpy(node->data_node, sign);
     node->yes = createNode (object, node);
 
     return;
 }
 
-// node_t* rootAkin (node_t* node) {
-//     assert (node);
-
-//     while (node->otets != NULL) {   
-//         node = node->otets;
-//     }
-
-//     return node;
-// }
-
 node_t* readAkin (char** arr, node_t* otets) {
     assert (arr);
 
-    char* word = (char*)calloc(SIZE_OBJECT + 1, sizeof(char));   
-    if (!word) {
-        printf("Unluck with allocating mem for word");
-    }        
-            
+    char word [SIZE_OBJECT + 1] = "0";   
+
     readWordAkin (arr, word);
+    printf("%s", word);
     
     node_t* node = createNode (word, otets);
     
     if (!otets) {
         BIG_BOSS = node;
     }
-
-    free(word);
 
     arr += lenWordAkin(*arr);
     
@@ -89,53 +75,6 @@ node_t* readAkin (char** arr, node_t* otets) {
     return node;
 }
 
-/*void akinator (node_t* node) {
-    assert (node);
-
-    char answer[SIZE_ANSWER] = "";
-
-
-    
-    printf("The hidden object is %s?  ", node->data_node);
-
-    scanf("%s", answer);
-    
-    if (strcmp (no, answer) == 0) {
-        if (node->no == NULL && node->yes ==  NULL) {
-            char sing[SIZE_SING] = "";
-            char object[SIZE_OBJECT] = "";
-
-            printf("I am very sorry if I could not meet your expectations or if there was an error in interaction.\n"
-                   "Please write the name of the object that was hidden: ");
-            scanf("%s", object);
-
-            printf("Please write a sign by which you can guess the object");
-            
-            scanf("%s", sing);
-
-            addObjectiveAkin (node, sing, object, node->data_node);
-
-            //node = rootAkin (node); 
-            node = BIG_BOSS;
-    
-            akinator (node);
-        }
-        else {
-            akinator (node->no);
-        }    
-    }
-
-    if (strcmp (yes, answer) == 0) {
-        if (node->no == NULL && node->yes ==  NULL){
-            printf ("KAAAAAYYYYYF");
-            return;
-        }
-        else {
-            akinator (node->yes);
-        }
-    }
-} */
-
 void akinator (node_t* node) {
     char answer[SIZE_ANSWER + 1] = "";
 
@@ -143,25 +82,27 @@ void akinator (node_t* node) {
         printf("The hidden object is %s?  ", node->data_node);
         fgets (answer, SIZE_ANSWER + 1, stdin);
         answer[SIZE_ANSWER] = '\0';
-        printf("%d", strcmp(yes, answer));
 
         if (!node->yes & !node->no) {
             if (!strcmp (no, answer)) {
-                char* sing = (char*) calloc (SIZE_SING, sizeof(char));
+                char* sign = (char*) calloc (SIZE_SING, sizeof(char));
                 char* object = (char*) calloc (SIZE_OBJECT, sizeof(char));
 
                 printf("I am very sorry if I could not meet your expectations or if there was an error in interaction.\n"
                     "Please write the name of the object that was hidden: ");
 
                 scanf("%[^\n]", object);
-                object[SIZE_SING] = 3;
+                object[SIZE_SING - 1] = 3;
                 cleanBuff();
 
                 printf("Please write a sign by which you can guess the object: ");
-                scanf("%[^\n]", sing);
+                scanf("%[^\n]", sign);
                 cleanBuff();
 
-                addObjectiveAkin (node, sing, object, node->data_node);
+                addObjectiveAkin (node, sign, object, node->data_node);
+
+                free (sign);
+                free (object);
 
                 akinator (BIG_BOSS);
                 return;
@@ -212,7 +153,6 @@ int lenWordAkin (char* arr) {
 }
 
 int defAkin (node_t* node, char* object) {
-    //printf("%d\n", strcmp(object, node->data_node));
     if (strcmp(object, node->data_node)) {
         if (node->yes) {
             if (defAkin (node->yes, object)) {
@@ -253,8 +193,8 @@ int compAkin  (node_t* node, char* object1, char* object2, path_t* path1, path_t
     }
 
     printf("%s and %s are both", path1[0].data, path2[0].data);
-    for (int i = 1; i < i1; i++) {
-        for (int j = 1; j < i2; j++) {
+    for (int i = 0; i < i1; i++) {
+        for (int j = 0; j < i2; j++) {
             if (!strcmp(path1[i].data, path2[j].data) && path1[i].flag && path2[j].flag) {
                 printf(" %s", path1[i].data);
             } else if (!strcmp(path1[i].data, path2[j].data) && !path1[i].flag && !path2[j].flag) {
@@ -326,13 +266,20 @@ void optionAkin (node_t* node) {
 
             for (int i = 0; i < MAX_DEPTH; i++) {
                 path1[i].data = (char*) calloc (SIZE_OBJECT, sizeof(char));
-            }
-            for (int i = 0; i < MAX_DEPTH; i++) {
                 path2[i].data = (char*) calloc (SIZE_OBJECT, sizeof(char));
             }
+            
             if (!compAkin (node, object1, object2, path1, path2)) {
                 printf("No at least one of 2 objects\n");
             }
+            
+            for (int i = 0; i < MAX_DEPTH; i++) {
+                free(path1[i].data);
+                free(path2[i].data);
+            }
+
+            free(path1);
+            free(path2);
 
             break;
         } else {
