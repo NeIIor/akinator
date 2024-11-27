@@ -50,7 +50,7 @@ node_t* readAkin (char** arr, node_t* otets) {
     char word [SIZE_OBJECT + 1] = "";  
 
     readWordAkin (arr, word);
-    word[SIZE_OBJECT] = '\0'; 
+    word[SIZE_OBJECT] = '\0';
     printf("%s", word);
     
     node_t* node = createNode (word, otets);
