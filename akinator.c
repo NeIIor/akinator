@@ -1,7 +1,5 @@
 #include "bin_tree.h"
 
-node_t* BIG_BOSS;
-
 void printAkin (node_t* node, FILE* file_tree) {
     assert (node && file_tree);
 
@@ -44,7 +42,7 @@ void addObjectiveAkin (node_t* node, char* sign, char* object, char* parent) {
     return;
 }
 
-node_t* readAkin (char** arr, node_t* otets) {
+node_t* readAkin (char** arr, node_t* otets, node_t** root) {
     assert (arr);
 
     (*arr)++; 
@@ -57,24 +55,24 @@ node_t* readAkin (char** arr, node_t* otets) {
     node_t* node = createNode (word, otets);
     
     if (!otets) {
-        BIG_BOSS = node;
+        *root = node;
     }
 
     //(*arr) += len;
     
     if (**arr == '{') {
-        node->yes = readAkin(arr, node);
+        node->yes = readAkin(arr, node, root);
     }
 
     if (**arr == '{') {
-        node->no = readAkin (arr, node);
+        node->no = readAkin (arr, node, root);
     }
     (*arr)++;
 
     return node;
 }
 
-void akinator (node_t* node) {
+void akinator (node_t* node, node_t* root) {
     char answer[SIZE_ANSWER + 1] = "";
 
     while (true) {
@@ -103,7 +101,7 @@ void akinator (node_t* node) {
                 free (sign);
                 free (object);
 
-                akinator (BIG_BOSS);
+                akinator (root, root);
                 return;
             } else if (!strcmp(yes, answer)){
                 printf ("KAAAAAYYYYYF");
@@ -192,19 +190,15 @@ int compAkin  (node_t* node, char* object1, char* object2, path_t* path1, path_t
     }
 
     printf("%s and %s are both", path1[0].data, path2[0].data);
-    for (int i = 0; i < i1; i++) {
-        for (int j = 0; j < i2; j++) {
-            if (!strcmp(path1[i].data, path2[j].data) && path1[i].flag && path2[j].flag) {
-                printf(" %s", path1[i].data);
-            } else if (!strcmp(path1[i].data, path2[j].data) && !path1[i].flag && !path2[j].flag) {
-                printf(" not %s", path2[i].data);
-            }
-        }
-    }
+    
     int i = 0;
     for (; i < MIN(i1, i2); i++) {
-        if (path1[i1 - 1 -i].flag != path2[i2 - 1 - i].flag) {
+        if (path1[i1 - 1 - i].flag != path2[i2 - 1 - i].flag) {
             break;
+        } else if (path1[i1 - i - 1].flag) {
+            printf(", %s", path1[i1 - 1 - i].data);
+        } else {
+            printf(", not %s", path1[i1 - 1 - i].data);
         }
     }
     printf(", but %s --", path1[0].data);
@@ -225,7 +219,7 @@ int compAkin  (node_t* node, char* object1, char* object2, path_t* path1, path_t
     return 1;
 }
 
-void optionAkin (node_t* node) {
+void optionAkin (node_t* node, node_t* root) {
     assert(node);
     char option[SIZE_OPTION + 1] = "";
     printf("Choose only one option from these: define/compare/akinator ");
@@ -235,7 +229,7 @@ void optionAkin (node_t* node) {
         option[SIZE_OPTION] = '\0';
 
         if (!strcmp(akin, option)) {
-            akinator(node);
+            akinator(node, root);
             break;
         } else if (!strcmp(define, option)) {
             char object[SIZE_OBJECT + 1] = "";

@@ -33,12 +33,12 @@ void printAkin                 (node_t* node, FILE* file_tree);
 void destrAkin                 (node_t* node);
 void akinator                  (node_t* node);
 void addObjectiveAkin          (node_t* node, char* sign, char* object, char* parent);
-node_t* readAkin               (char** arr, node_t* otets);
+node_t* readAkin               (char** arr, node_t* otets, node_t** root);
 void readWordAkin              (char** arr, char* word);
 int lenWordAkin                (char*  arr);
 int defAkin                    (node_t* node, char* object);
 int compAkin                   (node_t* node, char* object1, char* object2, path_t* path1, path_t* path2);
-void optionAkin                (node_t* node);
+void optionAkin                (node_t* node, node_t* root);
 int defSaveAkin                (node_t* node, char* object, path_t* path, int* i);
 
 #endif //__AKINATOR_H__
