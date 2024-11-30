@@ -258,19 +258,9 @@ void optionAkin (node_t* node, node_t* root) {
 
             path_t* path1 = (path_t*) calloc (MAX_DEPTH, sizeof(path_t));
             path_t* path2 = (path_t*) calloc (MAX_DEPTH, sizeof(path_t));
-
-            for (int i = 0; i < MAX_DEPTH; i++) {
-                path1[i].data = (char*) calloc (SIZE_OBJECT, sizeof(char));
-                path2[i].data = (char*) calloc (SIZE_OBJECT, sizeof(char));
-            }
             
             if (!compAkin (node, object1, object2, path1, path2)) {
                 printf("No at least one of 2 objects\n");
-            }
-            
-            for (int i = 0; i < MAX_DEPTH; i++) {
-                free(path1[i].data);
-                free(path2[i].data);
             }
 
             free(path1);

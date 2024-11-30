@@ -24,14 +24,14 @@ const int SIZE_OPTION   = 100;
 const int MAX_DEPTH     =  10;
 
 typedef struct {
-    char* data;
+    const char* data;
     bool  flag;
 } path_t;
 
 node_t* createNodeAkin         (data_t data, node_t* node);
 void printAkin                 (node_t* node, FILE* file_tree);
 void destrAkin                 (node_t* node);
-void akinator                  (node_t* node);
+void akinator                  (node_t* node, node_t root);
 void addObjectiveAkin          (node_t* node, char* sign, char* object, char* parent);
 node_t* readAkin               (char** arr, node_t* otets, node_t** root);
 void readWordAkin              (char** arr, char* word);
