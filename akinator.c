@@ -47,10 +47,11 @@ void addObjectiveAkin (node_t* node, char* sign, char* object, char* parent) {
 node_t* readAkin (char** arr, node_t* otets) {
     assert (arr);
 
-    char word [SIZE_OBJECT + 1] = "";  
+    (*arr)++; 
+    int len = lenWordAkin(*arr);
+    char* word = (char*) calloc (len + 1, sizeof(char));
 
     readWordAkin (arr, word);
-    word[SIZE_OBJECT] = '\0';
     printf("%s", word);
     
     node_t* node = createNode (word, otets);
@@ -59,19 +60,16 @@ node_t* readAkin (char** arr, node_t* otets) {
         BIG_BOSS = node;
     }
 
-    arr += lenWordAkin(*arr);
+    //(*arr) += len;
     
     if (**arr == '{') {
-        (*arr)++; 
         node->yes = readAkin(arr, node);
-        (*arr)++; 
     }
 
     if (**arr == '{') {
-        (*arr)++; 
         node->no = readAkin (arr, node);
-        (*arr)++;
     }
+    (*arr)++;
 
     return node;
 }
@@ -205,7 +203,7 @@ int compAkin  (node_t* node, char* object1, char* object2, path_t* path1, path_t
     }
     int i = 0;
     for (; i < MIN(i1, i2); i++) {
-        if (strcmp(path1[i1 - 1 - i].data, path2[i2 - 1 - i].data)) {
+        if (path1[i1 - 1 -i].flag != path2[i2 - 1 - i].flag) {
             break;
         }
     }
@@ -259,11 +257,13 @@ void optionAkin (node_t* node) {
 
             scanf("%[^\n]", object1);
             scanf("%*c");
+            printf("%s\n", object1);
             scanf("%[^\n]", object2);
             scanf("%*c");
+            printf("%s\n", object2);
 
             path_t* path1 = (path_t*) calloc (MAX_DEPTH, sizeof(path_t));
-            path_t* path2 = (path_t*) calloc (MAX_DEPTH, sizeof(char*));
+            path_t* path2 = (path_t*) calloc (MAX_DEPTH, sizeof(path_t));
 
             for (int i = 0; i < MAX_DEPTH; i++) {
                 path1[i].data = (char*) calloc (SIZE_OBJECT, sizeof(char));

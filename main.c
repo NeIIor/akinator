@@ -12,12 +12,11 @@ int main () {
         printf("Unluck with opening stream file_tree");
     }
 
-    char* arr;
-    arr =  fillBuffAkin (file_tree, &arr);
-    arr++;
+    char* arr =  fillBuff (file_tree);
+    char* buff = arr;
 
     node_t* node = readAkin (&arr, NULL);
-    free (arr);
+    free (buff);
 
     fclose (file_tree);
     optionAkin (node);

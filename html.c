@@ -27,4 +27,3 @@ void fillEndHtml () {
     fprintf (file_html,"</html>");
     fclose (file_html);
 }
-

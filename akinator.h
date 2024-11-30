@@ -32,7 +32,7 @@ node_t* createNodeAkin         (data_t data, node_t* node);
 void printAkin                 (node_t* node, FILE* file_tree);
 void destrAkin                 (node_t* node);
 void akinator                  (node_t* node);
-void addObjectiveAkin          (node_t* node, char* sing, char* object, char* parent);
+void addObjectiveAkin          (node_t* node, char* sign, char* object, char* parent);
 node_t* readAkin               (char** arr, node_t* otets);
 void readWordAkin              (char** arr, char* word);
 int lenWordAkin                (char*  arr);

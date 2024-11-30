@@ -5,19 +5,18 @@ void cleanBuff () {
     while ((c = getchar()) != '\n');
 }
 
-char* fillBuffAkin (FILE* file_tree, char** arr){
+char* fillBuff (FILE* file_tree){
     
     size_t size_arr = fileSize (file_tree);
     assert (file_tree);
-    assert (arr);
 
-    *arr = (char*)calloc(size_arr + 1, sizeof(char));
-    if (!*arr) {
+    char* arr = (char*)calloc(size_arr + 1, sizeof(char));
+    if (!arr) {
         printf("Unluck with allocating memory for arr");
     }
 
-    fread (*arr, sizeof(char), size_arr, file_tree);
-    return *arr;
+    fread (arr, sizeof(char), size_arr, file_tree);
+    return arr;
 }
 
 size_t fileSize (FILE* file_tree) {

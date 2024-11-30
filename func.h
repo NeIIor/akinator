@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 void cleanBuff     ();
-char* fillBuffAkin (FILE* file_tree, char** arr);
+char* fillBuff     (FILE* file_tree);
 size_t fileSize    (FILE* file_tree);
 
 #endif // __FUNC_H__

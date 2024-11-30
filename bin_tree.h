@@ -3,6 +3,6 @@
 
 #include "akinator.h"
 
-node_t* createNode (data_t data, node_t* node);
+node_t* createNode (char* data, node_t* node);
 
 #endif // __BIN_TREE_H
