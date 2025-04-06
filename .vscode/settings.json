@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "bin_tree.h": "c",
+        "akinator.h": "c",
+        "gen.h": "c"
+    }
+}
