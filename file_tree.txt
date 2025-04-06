@@ -1,1 +1,1 @@
-{wildlife{lion{simba{courage}{strength}}{nala{grace}{wisdom}}}{tiger{shere khan{ferocity}{power}}{bagheera{stealth}{intelligence}}}}
+{wildlife{lion{simba{15 cm{�}{15 cm}}{strength}}{nala{grace}{wisdom}}}{tiger{shere khan{ferocity}{power}}{bagheera{stealth}{intelligence}}}}
