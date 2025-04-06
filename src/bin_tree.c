@@ -1,4 +1,4 @@
-#include "bin_tree.h"
+#include "../h/bin_tree.h"
 
 node_t* createNode (char* data, node_t* node) {
     assert (data);

@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <assert.h>
 
-#include "bin_tree.h"
-#include "dump.h"
-#include "html.h"
+#include "../h/bin_tree.h"
+#include "../h/dump.h"
+#include "../h/html.h"
 
 int main () {
     node_t* BIG_BOSS = NULL;

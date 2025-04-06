@@ -5,7 +5,7 @@
 #include <sys/time.h>
 #include <assert.h>
 
-#include "dump.h"
+#include "../h/dump.h"
 
 void dumpAkin  (node_t* node) {
     assert (node);

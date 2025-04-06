@@ -1,4 +1,4 @@
-#include "func.h"
+#include "../h/func.h"
 
 void cleanBuff () {
     char c;

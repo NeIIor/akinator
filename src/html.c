@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-#include "html.h"
+#include "../h/html.h"
 
 void fillBeginningHtml () {
     FILE* file_html = fopen ("dump.html", "w"); 

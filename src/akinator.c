@@ -1,4 +1,4 @@
-#include "bin_tree.h"
+#include "../h/bin_tree.h"
 
 void printAkin (node_t* node, FILE* file_tree) {
     assert (node && file_tree);
